@@ -42,3 +42,12 @@ def login(data : LoginRequest):
 
 
 
+@app.post("/upload")
+
+async def upload(file: UploadFile = File(...)):
+    data = await file.read()
+    temp = open("temp.pdf","wb")
+    temp.write(data)
+    temp.close()
+    add_manuals(1,"temp.pdf")
+    return {"message" : "success"}
